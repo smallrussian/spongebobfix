@@ -11,3 +11,4 @@
 # Build output
 /rebuild/**/build/
 __pycache__/
+/rebuild/releases/*.zip

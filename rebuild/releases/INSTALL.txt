@@ -1,0 +1,34 @@
+sb2modern v0.1.0 - SpongeBob SquarePants: Employee of the Month on modern Windows
+==================================================================================
+
+What it is
+  Two drop-in DLLs for the original 2002 PC game (sb2.exe). No game files are changed.
+  - ddraw.dll  : Direct3D 11 renderer (replaces DirectDraw/Direct3D 6).
+                 Borderless fullscreen or a scaled window, correct 4:3, vsync, no 16-bit mode switch.
+  - dsound.dll : WASAPI audio. Follows your default Windows output device live
+                 (plug in headphones and the sound moves), or pin a device in the ini.
+  Also: no CD needed, precise timing, ~10% of one core instead of 100%, DPI aware.
+
+Requirements
+  - Windows 10 or 11, any Direct3D 11 GPU.
+  - Your own installed copy of the game (not included).
+
+Install
+  1. Open the game folder (the one containing sb2.exe).
+  2. If dgVoodoo or another wrapper is installed there, move its ddraw.dll / dsound.dll /
+     D3D*.dll / dgVoodoo.conf / dgVoodooCpl.exe somewhere else.
+  3. Copy ddraw.dll, dsound.dll and sb2modern.ini from this zip into the game folder.
+  4. Run sb2.exe. No compatibility mode or admin rights needed; turn them off if set.
+
+Settings (sb2modern.ini, recreated with defaults if deleted)
+  [Display] WindowMode=0 borderless / 1 window (Alt+Enter toggles), WindowScale, Scaling
+            (0 = 4:3, 1 = stretch, 2 = integer), Filter, VSync, FrameLimit, TextureFilter
+  [Audio]   Device= (empty = follow Windows default, else part of a device name),
+            LatencyMs, MasterVolume
+  [Compat]  NoCD, PreciseTimer, ReduceCPU
+  [Debug]   LogLevel (log written to sb2modern.log)
+
+Uninstall
+  Delete ddraw.dll, dsound.dll, sb2modern.ini (and sb2modern.log) from the game folder.
+
+Source: https://github.com/smallrussian/spongebobfix
