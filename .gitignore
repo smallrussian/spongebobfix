@@ -7,3 +7,6 @@
 # Regenerable REA analysis outputs (large)
 /rebuild/*.rea-snapshot
 /rebuild/rea-evidence.json
+
+# Build output
+/rebuild/**/build/
