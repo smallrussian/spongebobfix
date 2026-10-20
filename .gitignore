@@ -1,0 +1,9 @@
+# Original game files (copyrighted, large) are never tracked.
+# Whitelist approach: ignore everything, then re-include project files.
+/*
+!/.gitignore
+!/rebuild/
+
+# Regenerable REA analysis outputs (large)
+/rebuild/*.rea-snapshot
+/rebuild/rea-evidence.json
