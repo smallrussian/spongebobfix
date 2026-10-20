@@ -10,3 +10,4 @@
 
 # Build output
 /rebuild/**/build/
+__pycache__/
