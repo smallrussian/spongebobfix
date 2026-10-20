@@ -12,3 +12,4 @@
 /rebuild/**/build/
 __pycache__/
 /rebuild/releases/*.zip
+!/README.md
