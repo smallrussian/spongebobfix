@@ -183,16 +183,18 @@ def decode_canvas(d):
 
 def decode_material(d):
     """3DMa records: 52 bytes in this game (OMT.dll OMedia3DMaterial::read_class 0x1001D0D0)."""
-    out = {"header": list(struct.unpack_from(">HH", d, 0))}
+    out = {"header": list(struct.unpack_from(">HH", d, 0))}  # (version 1, kind: 2 = textured, 0 = flat colour)
     if len(d) < 52:
-        # 3 short (18-byte) records exist with an older layout; keep them raw.
-        out["raw"] = d.hex()
+        # Flat colour material (18 bytes): f32 opacity, u16 0, u16 r, g, b, u16 3. Used for the glass helmets.
+        out["opacity"] = round(struct.unpack_from(">f", d, 4)[0], 4)
+        out["color"] = [c >> 8 for c in struct.unpack_from(">HHH", d, 10)]
         return out
     out["raw_12"] = d[4:16].hex()
     out["colors"] = [[c >> 8 for c in struct.unpack_from(">HHH", d, 16 + i * 6)] for i in range(3)]
     out["flags"] = list(struct.unpack_from(">HHHH", d, 34))
     if d[42:46] == b"Canv":
-        out["texture"] = {"type": "Canv", "database": struct.unpack_from(">I", d, 46)[0], "id": struct.unpack_from(">H", d, 50)[0]}
+        # Canvas id of the texture in the same database; the trailing u16 is 3 in every material.
+        out["texture"] = {"type": "Canv", "id": struct.unpack_from(">I", d, 46)[0], "extra": struct.unpack_from(">H", d, 50)[0]}
     return out
 
 
